@@ -1,0 +1,40 @@
+1.Display the Highest, Lowest, Total & Average salary of all staff. Label the columns Maximum, Minimum, Total and Average respectively for each Department code. Also round the result to the nearest whole number.
+
+solution:-
+SQL> select round(max(sal)) as maximum,round(min(sal)) as minimum,round(sum(sal)
+) as total,round(avg(sal)) as average from emp group by deptno;
+
+   MAXIMUM    MINIMUM      TOTAL    AVERAGE
+---------- ---------- ---------- ----------
+     60000      60000      60000      60000
+     50000      50000      50000      50000
+     50000      50000     150000      50000
+      6000       6000       6000       6000
+     47000      47000      47000      47000
+     
+     
+2.Display Department code and number of managers working in that department. Label the column as ‘Total Number of Managers’ for each department.
+
+solution:-
+SQL> select deptno,count(mgr) as total_number_of_managers from emp group by dept
+no;
+
+    DEPTNO TOTAL_NUMBER_OF_MANAGERS
+---------- ------------------------
+        11                        1
+        13                        1
+        14                        3
+        12                        1
+        39                        1
+        
+        
+3.Get the Department number, and sum of Salary of all non-managers where the sum is greater than 20000. 
+
+solution:-
+SQL> select deptno,sum(sal) from emp where mgr is null group by deptno having su
+m(sal)>20000;
+
+    DEPTNO   SUM(SAL)
+---------- ----------
+        20      45000
+        14      40000

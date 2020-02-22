@@ -1,0 +1,220 @@
+
+1.Create a query which will display Staff Name, Salary of each staff. Format the salary to be 15 characters long and left padded with ‘$’. 
+
+solution:-
+SQL> select staffname,lpad(staffsal,15,'$') from staffmaster;
+
+STAFFNAME
+--------------------------------------------------
+LPAD(STAFFSAL,15,'$')
+------------------------------------------------------------
+ved
+$$$$$$$$$100000
+
+vad
+$$$$$$$$$100000
+
+va_da
+$$$$$$$$$$20000
+
+
+STAFFNAME
+--------------------------------------------------
+LPAD(STAFFSAL,15,'$')
+------------------------------------------------------------
+vav
+$$$$$$$$$$20500
+
+vav
+$$$$$$$$$205000
+
+v_a
+$$$$$$$$$$15000
+
+
+STAFFNAME
+--------------------------------------------------
+LPAD(STAFFSAL,15,'$')
+------------------------------------------------------------
+v/_a
+$$$$$$$$$$15000
+
+
+7 rows selected.
+
+
+
+2.Display name and date of birth of students where date of birth must be displayed in the format similar to “January, 12 1981” for those who were born on Saturday or Sunday.
+
+sloution:-
+SQL> select studentname,to_char(studentdob,'month,DD YYYY') as studentdob from s
+tudentmaster s where to_char(s.studentdob,'day') like '%saturday%' or to_char(s.
+studentdob,'day') like '%sunday%';
+
+STUDENTNAME
+--------------------------------------------------
+STUDENTDOB
+--------------------------------------------
+ved
+january  ,18 2020
+
+ve
+january  ,19 2020
+
+
+3.Display each Staff name and number of months they worked for the organization. Label the column as ‘Months Worked’. 
+Order your result by number of months employed. Also Round the number of months to closest whole number.
+
+SOLUTION:-
+SQL> select staffname,round((sysdate-hiredate)/12) as monthsworked from staffmas
+ter order by monthsworked ASC;
+
+STAFFNAME                                          MONTHSWORKED
+-------------------------------------------------- ------------
+ved                                                           2
+vad                                                           2
+vav                                                           2
+va_da                                                       550
+vav                                                         580
+v_a                                                         671
+v/_a                                                        671
+
+
+4.List the details of the staff who have joined in first half of December month (irrespective of the year). 
+
+solution:-
+SQL> select *from staffmaster where to_char(hiredate,'dd') between 1 and 15 and
+to_char(hiredate,'mm')=12;
+
+ STAFFCODE STAFFNAME                                          DESIGNCODE
+---------- -------------------------------------------------- ----------
+  DEPTCODE HIREDATE  STAFFDOB
+---------- --------- ---------
+STAFFADDRESS
+-------------------------------------------------------------------------------
+
+   MGRCODE   STAFFSAL
+---------- ----------
+         9 vsj                                                       190
+       765 12-DEC-12 15-JAN-97
+dsa
+        13      15000
+5.Write a query that displays Staff Name, Salary, and Grade of all staff. Grade depends on the following table. 
+Salary	Grade
+Salary >=50000	A
+Salary >= 25000 < 50000	B
+Salary>=10000 < 25000	C
+OTHERS	D
+
+solution:-
+SQL> select staffname,staffsal, case when staffsal>=50000 then 'A' when staffsal
+>=25000 and staffsal<50000 then 'B' when staffsal>=10000 and staffsal<25000 then
+ 'C' else 'D' end as "group" from staffmaster;
+
+STAFFNAME                                            STAFFSAL g
+-------------------------------------------------- ---------- -
+ved                                                    100000 A
+vad                                                    100000 A
+va_da                                                   20000 C
+vav                                                     20500 C
+vav                                                    205000 A
+v_a                                                     15000 C
+v/_a                                                    15000 C
+vsj                                                     15000 C
+
+
+6.Display the Staff Name, Hire date and day of the week on which staff was hired. Label the column as DAY. Order the result by the day of the week starting with Monday.        Hint :Use to_char with hiredate and formats ‘DY’ and ’D’
+ 
+solution:-
+SQL> SELECT staffname, hiredate, TO_CHAR(hiredate,'DAY') AS DAY from staffmaster
+ order by hiredate,day;
+
+STAFFNAME                                          HIREDATE
+-------------------------------------------------- ---------
+DAY
+------------------------------------
+v/_a                                               02-JAN-98
+FRIDAY
+
+v_a                                                02-JAN-98
+FRIDAY
+
+vav                                                03-JAN-01
+WEDNESDAY
+
+
+STAFFNAME                                          HIREDATE
+-------------------------------------------------- ---------
+DAY
+------------------------------------
+va_da                                              02-JAN-02
+WEDNESDAY
+
+vsj                                                12-DEC-12
+WEDNESDAY
+
+ved                                                01-JAN-20
+WEDNESDAY
+
+
+STAFFNAME                                          HIREDATE
+-------------------------------------------------- ---------
+DAY
+------------------------------------
+vad                                                02-JAN-20
+THURSDAY
+
+vav                                                03-JAN-20
+FRIDAY
+
+ 
+7.Write a query to find the position of third occurrence of ‘i’ in the given word ‘Mississippi’. 
+
+solution:-
+SQL>   SELECT INSTR('mississippi', 'i', 1, 3) FROM dual;
+
+INSTR('MISSISSIPPI','I',1,3)
+----------------------------
+                           8
+ https://ideone.com/uoPfOQ                          
+                           
+8.Write a query to find the pay date for the month. Pay date is the last Friday of the month. Display the date in the format “Twenty Eighth of January, 2002”. Label the heading as PAY DATE. Hint: use to_char, next_day and last_day functions
+
+solution:-
+SQL> SELECT TO_CHAR(NEXT_DAY((last_day('1-jan-2020'))-7,'friday'),'dd month,yyyy
+') as payday from dual;
+
+PAYDAY
+-----------------
+31 january  ,2020
+
+
+9.Display Student code, Name and Dept Name. Display “Electricals” if dept code = 20, “Electronics” if Dept code =30 and “Others” for all other Dept codes in the Dept Name column. Hint : Use Decode 
+
+solution:-1
+
+SQL> select studentcode,studentname, case when deptcode=20 then 'elecricals' whe
+n deptcode=30 then 'electonics' else 'others' end as "deptname" from studentmast
+er;
+
+STUDENTCODE STUDENTNAME                                        deptname
+----------- -------------------------------------------------- ----------
+          1 ved                                                others
+          2 ve                                                 others
+          3 vdf                                                others
+          9 vdf                                                others
+         17 kjgd                                               elecricals
+         
+solution-2:-
+
+SQL> SELECT STUDENTCODE,STUDENTNAME,DECODE(DEPTCODE,20,'ELECRICALS',30,'ELECTONI
+CS','OTHERS') DEPARTMENTNAME FROM STUDENTMASTER;
+
+STUDENTCODE STUDENTNAME                                        DEPARTMENT
+----------- -------------------------------------------------- ----------
+          1 ved                                                OTHERS
+          2 ve                                                 OTHERS
+          3 vdf                                                OTHERS
+          9 vdf                                                OTHERS
+         17 kjgd                                               ELECRICALS
+         

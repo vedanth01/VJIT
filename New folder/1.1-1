@@ -1,0 +1,85 @@
+1.List the Name and Designation code of the staff who have joined before Jan 2003 and whose salary range is between 12000 and 25000. Display the columns with user defined Column headers.
+
+solution:-
+SQL> select staffname,designcode from staffmaster where hiredate<'1-jan-2003' AN
+D staffsal between 12000 AND 25000;
+
+STAFFNAME                                          DESIGNCODE
+-------------------------------------------------- ----------
+va_da                                                      12
+vav                                                        13
+
+
+2.List the staff code, name, and department number of the staff who have experience of 18 or more years and sort them based on their experience. 
+
+solution:-
+SQL> select staffcode,staffname,deptcode from staffmaster where (sysdate - hired
+ate)/365 >18 order by hiredate ASC;
+
+ STAFFCODE STAFFNAME                                            DEPTCODE
+---------- -------------------------------------------------- ----------
+         8 v_a                                                       140
+         8 v/_a                                                      140
+         4 vav                                                       103
+         3 va_da                                                     102
+         
+         
+3.Display the staff details who do not have manager. Hint: Use is null  
+
+solution:-
+SQL> select *from staffmaster where mgrcode is null;
+
+ STAFFCODE STAFFNAME                                          DESIGNCODE
+---------- -------------------------------------------------- ----------
+  DEPTCODE HIREDATE  STAFFDOB
+---------- --------- ---------
+STAFFADDRESS
+-------------------------------------------------------------------------------
+
+   MGRCODE   STAFFSAL
+---------- ----------
+         5 vav                                                        15
+       104 03-JAN-20 12-JAN-98
+dikapo
+               205000
+
+
+4.Display the Book details that were published during the period of 2001 to 2004. Also display book details with Book name having the character ‘&’ anywhere.
+
+solution:-
+SQL> select * from bookmaster where bookpubyear between 2001 and 2004 and bookna
+me like '%&%';
+
+  BOOKCODE BOOKNAME                                           BOOKPUBYEAR
+---------- -------------------------------------------------- -----------
+BOOKPUBAUTHOR
+--------------------------------------------------
+        24 d/&                                                       2003
+jpk
+
+        24 d&                                                        2003
+jpk
+
+        26 d&                                                        2003
+jpk
+
+
+  BOOKCODE BOOKNAME                                           BOOKPUBYEAR
+---------- -------------------------------------------------- -----------
+BOOKPUBAUTHOR
+--------------------------------------------------
+        36 d&                                                        2003
+jpk
+
+
+5.List the names of the staff having ‘_’ character in their name. 
+
+solution:-
+SQL> select staffname from staffmaster where staffname like '%/_%' escape '/';
+
+STAFFNAME
+--------------------------------------------------
+va_da
+v_a
+v/_a
+

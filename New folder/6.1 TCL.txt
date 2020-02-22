@@ -1,0 +1,98 @@
+1)
+SQL> insert into customermaster(customerid,customername,address1,address2,gender,age,phoneno) values (6000,'john','#115 chicago','#115 chicago','m',25,7878776);
+
+1 row created.
+
+SQL> insert into customermaster(customerid,customername,address1,address2,gender,age,phoneno) values (6001,'jack','#116 france','#116 france','m',25,434524);
+
+1 row created.
+
+SQL> insert into customermaster(customerid,customername,address1,address2,gender,age,phoneno) values (6002,'james','#116 new york','#116 new york','m',25,431523);
+
+1 row created.
+
+
+2) 
+SQL> savepoint sp1;
+
+Savepoint created.
+
+3) 
+
+SQL> insert into customermaster(customerid,customername,address1,address2,gender,age,phoneno) values (6003,'john','#116 new york','#116 new york','m',25,431523);
+
+1 row created.
+
+SQL> select * from customermaster;
+
+CUSTOMERID CUSTOMERNAME                   ADDRESS1
+---------- ------------------------------ ------------------------------
+ADDRESS2                       G        AGE    PHONENO
+------------------------------ - ---------- ----------
+      1000 allen                          #115 chicago
+#115 chicago                   m         25    7878776
+
+      6001 jack                           #116 france
+#116 france                    m         25     434524
+
+      1002 becker                         #114 new york
+#114 new york                  m         45     431525
+
+
+CUSTOMERID CUSTOMERNAME                   ADDRESS1
+---------- ------------------------------ ------------------------------
+ADDRESS2                       G        AGE    PHONENO
+------------------------------ - ---------- ----------
+      1003 kishore                        hyd
+hyd                            m         28 9949576662
+
+      6000 john                           #115 chicago
+#115 chicago                   m         25    7878776
+
+      6002 james                          #116 new york
+#116 new york                  m         25     431523
+
+
+CUSTOMERID CUSTOMERNAME                   ADDRESS1
+---------- ------------------------------ ------------------------------
+ADDRESS2                       G        AGE    PHONENO
+------------------------------ - ---------- ----------
+      6003 john                           #116 new york
+#116 new york                  m         25     431523
+
+
+7 rows selected.
+
+
+
+4)  SQL> roll back to sp1;
+Rollback complete.
+
+SQL> select * from customermaster;
+
+CUSTOMERID CUSTOMERNAME                   ADDRESS1
+---------- ------------------------------ ------------------------------
+ADDRESS2                       G        AGE    PHONENO
+------------------------------ - ---------- ----------
+      1000 allen                          #115 chicago
+#115 chicago                   m         25    7878776
+
+      6001 jack                           #116 france
+#116 france                    m         25     434524
+
+      1002 becker                         #114 new york
+#114 new york                  m         45     431525
+
+
+CUSTOMERID CUSTOMERNAME                   ADDRESS1
+---------- ------------------------------ ------------------------------
+ADDRESS2                       G        AGE    PHONENO
+------------------------------ - ---------- ----------
+      1003 kishore                        hyd
+hyd                            m         28 9949576662
+
+      6000 john                           #115 chicago
+#115 chicago                   m         25    7878776
+
+      6002 james                          #116 new york
+#116 new york                  m         25     431523
